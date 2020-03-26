@@ -2,8 +2,8 @@ package ES1_2019_C2_66.HelloWorld;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
 
 /**
@@ -44,7 +44,7 @@ private App test;
 		test = new App();
 	}
 	
-	
+	@Test
 	public void test() {
 		Assert.assertFalse(test.containString("Filarmonica", "pastel"));
 		Assert.assertTrue(test.containString("Filarmonica", "monica"));
