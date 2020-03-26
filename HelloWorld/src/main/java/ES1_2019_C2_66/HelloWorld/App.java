@@ -10,4 +10,29 @@ public class App
     {
         System.out.println( "Hello World!" );
     }
+    
+    
+    public boolean containString(String word, String keyWord) {
+    	return word.contains(keyWord);
+    }
+    
+    public int comparatorInt(int a, int b) {
+    	if(a>b) {
+    		return 1;
+    	}
+    	else {
+    		if(a<b) {
+    			return -1;
+    		}
+    		else {
+    			return 0;
+    		}
+    	}
+    }
+    
+    public double circleArea(double r) {
+    	return Math.PI*Math.pow(r, 2);
+    }
+    
+    
 }
