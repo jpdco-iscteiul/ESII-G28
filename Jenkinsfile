@@ -1,5 +1,5 @@
 def dockeruser = "gnpsa"
-def imagename = "ubuntu:16"
+def imagename = "ubuntu:latest"
 def container = "apache2"
 node {
    echo 'Building Apache Docker Image'
@@ -25,7 +25,7 @@ stage ('Runing Container to test built Docker Image'){
     }
     
 stage('Tag Docker Image'){
-    powershell "docker tag ${imagename} ${env.dockeruser}/ubuntu:16.04"
+    powershell "docker tag ${imagename} ${env.dockeruser}/ubuntu:latest"
     }
 
 stage('Docker Login and Push Image'){
