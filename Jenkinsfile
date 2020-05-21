@@ -10,9 +10,9 @@ stage('Git Checkout') {
    
     stage('Connect to Docker'){
       powershell "sudo service docker start"
+       powershell "docker-compose up -d"
     }
    
 stage('Build Docker Imagae'){
-     powershell "docker-compose up -d"
     }
 }
