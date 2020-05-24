@@ -8,8 +8,8 @@ stage('Git Checkout') {
     git 'https://github.com/jpdco-iscteiul/ESII-G28'
     }
     stage('Docker'){
-      powershell "docker container ps -a"
-       powershell "docker pull ${imagename}"
+      powershell "cd d:/wordpress"
+       powershell "docker-compose up -d"
    }
    stage('Build Docker Imagae'){
      powershell "docker build -t  ${imagename} ."
