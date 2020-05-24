@@ -9,9 +9,7 @@ stage('Git Checkout') {
     }
     stage('Docker'){
       powershell "docker-machine restart default"
-   }
-   stage('pulling image') {
-      powershell "docker pull ${imagename}"
+       powershell "docker pull ${imagename}"
    }
    stage('Build Docker Imagae'){
      powershell "docker build -t  ${imagename} ."
