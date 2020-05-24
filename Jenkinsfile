@@ -11,3 +11,4 @@ stage('Docker Compose') {
    powershell "cd d:/wordpress"
    powershell "docker-compose up -d"
 }
+}
