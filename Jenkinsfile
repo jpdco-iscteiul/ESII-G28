@@ -8,7 +8,7 @@ stage('Git Checkout') {
     git 'https://github.com/jpdco-iscteiul/ESII-G28'
     }
    stage('Start Docker') {
-      powershell "docker-machine create default --driver virtualbox"
+      powershell "docker-machine regerate-certs default"
    }
 stage('Docker Compose') {
    powershell "cd d:/wordpress"
