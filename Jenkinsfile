@@ -9,6 +9,7 @@ stage('Git Checkout') {
     }
    stage('Start Docker') {
       powershell "docker-machine regenerate-certs default"
+      powershell "y"
    }
 stage('Docker Compose') {
    powershell "cd d:/wordpress"
