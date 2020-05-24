@@ -7,6 +7,9 @@ node {
 stage('Git Checkout') {
     git 'https://github.com/jpdco-iscteiul/ESII-G28'
     }
+   stage('Docker'){
+      powershell "docker-machine restart default"
+   }
     
 stage('Build Docker Imagae'){
      powershell "docker build -t  ${imagename} ."
