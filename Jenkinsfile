@@ -1,5 +1,5 @@
 def dockeruser = "gnpsa"
-def imagename = "ubuntu:16"
+def imagename = "ubuntu:16.04"
 def container = "apache2"
 node {
    echo 'Building Apache Docker Image'
@@ -7,9 +7,6 @@ node {
 stage('Git Checkout') {
     git 'https://github.com/jpdco-iscteiul/ESII-G28'
     }
-   stage('Docker'){
-      powershell "docker-machine restart default"
-   }
    
 stage ('Runing Container to test built Docker Image'){
     powershell "docker run -dit --name ${container} -p 80:80 ${imagename}"
