@@ -9,6 +9,7 @@ stage('Git Checkout') {
     }
     stage('Docker'){
       powershell "cd d:/wordpress"
+       powershell "docker-machine restart default"
        powershell "docker-compose up -d"
    }
    stage('Build Docker Imagae'){
