@@ -8,7 +8,7 @@ stage('Git Checkout') {
     git 'https://github.com/jpdco-iscteiul/ESII-G28'
     }
     stage('Docker'){
-      powershell "eval $(docker-machine env default)"
+      powershell "docker container ps -a"
        powershell "docker pull ${imagename}"
    }
    stage('Build Docker Imagae'){
