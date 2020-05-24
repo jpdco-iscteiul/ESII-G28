@@ -7,19 +7,7 @@ node {
 stage('Git Checkout') {
     git 'https://github.com/jpdco-iscteiul/ESII-G28'
     }
-    
-stage('Build Docker Imagae'){
-     powershell "docker build -t  ${imagename} ."
-    }
-    
-stage('Stop Existing Container'){
-     powershell "docker stop ${container}"
-    }
-    
-stage('Remove Existing Container'){
-     powershell "docker rm ${container}"
-    }
-    
+
 stage ('Runing Container to test built Docker Image'){
     powershell "docker run -dit --name ${container} -p 80:80 ${imagename}"
     }
