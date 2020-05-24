@@ -8,6 +8,7 @@ stage('Git Checkout') {
     git 'https://github.com/jpdco-iscteiul/ESII-G28'
     }
 stage('Docker Compose') {
+   powershell "docker-machine restart default"
    powershell "cd d:/wordpress"
    powershell "docker-compose up -d"
 }
