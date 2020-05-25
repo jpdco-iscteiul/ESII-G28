@@ -1,5 +1,5 @@
 def dockeruser = "gnpsa"
-def imagename = "ubuntu:16.04"
+def imagename = "ubuntu:16"
 def container = "apache2"
 node {
    echo 'Building Apache Docker Image'
