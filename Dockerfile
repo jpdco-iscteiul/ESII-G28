@@ -1,12 +1,10 @@
 # Source Image name
-from ubuntu:16.04
-# Mainter Name
-maintainer Amar Singh
+FROM openjdk:8
 # Command to update and install Apache packages
-RUN apt-get update && apt-get install apache2 -y
+
 # open port 
-EXPOSE 80
+EXPOSE 8080
 # Command to run Apache server in background
-CMD /usr/sbin/apache2ctl -D FOREGROUND
+CMD java -jar /HelloWorld.jar
 
 
