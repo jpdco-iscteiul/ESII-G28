@@ -1,6 +1,6 @@
 def dockeruser = "gnpsa"
 def imagename = "openjdk:8"
-def container = "app_java"
+def container = "helloworld_java"
 node {
    echo 'Building Apache Docker Image'
 
