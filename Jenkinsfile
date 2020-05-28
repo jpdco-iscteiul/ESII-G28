@@ -1,6 +1,6 @@
 def dockeruser = "gnpsa"
 def imagename = "openjdk:8"
-def container = "helloworld_java"
+def container = "helloworld"
 node {
    echo 'Building Apache Docker Image'
 
@@ -24,13 +24,13 @@ stage ('Runing Container to test built Docker Image'){
     powershell "docker run -dit --name ${container} -p 8091:80 ${imagename}"
     }
    stage('Tag Docker Image'){
-    powershell "docker tag ${imagename} ${env.dockeruser}/helloworld_java"
+    powershell "docker tag ${imagename} ${env.dockeruser}/helloworld"
     }
 
 stage('Docker Login and Push Image'){
     withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'dockerpasswd', usernameVariable: 'dockeruser')]) {
     powershell "docker login -u ${dockeruser} -p ${dockerpasswd}"
     }
-    powershell "docker push ${dockeruser}/helloworld_java"
+    powershell "docker push ${dockeruser}/helloworld"
     }
 }
