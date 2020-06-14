@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>ES1-2019-C2-66</groupId>
-  <artifactId>HelloWorld</artifactId>
+  <artifactId>ESII-G28</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>HelloWorld</name>
+  <name>ESII-G28</name>
   <url>http://maven.apache.org</url>
 
   <properties>
