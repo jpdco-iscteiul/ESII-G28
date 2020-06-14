@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="public" author="true" classpath="C:\Users\freit\.p2\pool\plugins\org.junit_4.13.0.v20200204-1500.jar;C:\Users\freit\.m2\repository\junit\junit\4.13\junit-4.13.jar;C:\Users\freit\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\freit\.m2\repository\com\oracle\ojdbc7\12.1.0.2\ojdbc7-12.1.0.2.jar;C:\Users\freit\Desktop\Nicole\FACULDADE\IGE - 3º ano\ES II\JARS ESII\cermine-impl-1.13.jar;C:\Users\freit\.p2\pool\plugins\org.hamcrest.core_1.3.0.v20180420-1519.jar;C:\Users\freit\Desktop\Nicole\FACULDADE\IGE - 3º ano\ES II\JARS ESII\cermine-impl-1.13-jar-with-dependencies.jar;target/test-classes" destdir="" doctitle="Java FTP Client Utility API" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" source="1.5" sourcefiles="src/main/java/MetadataExtraction.java,src/main/java/HTMLTableBuilder.java,src/test/java/MetadataExtractionTeste.java,src/test/java/Teste_html_grupo28.java" sourcepath="src/main/java;src/main/resources;src/test/java;src/test/resources" splitindex="true" use="true" version="true"/>
+    </target>
+</project>
