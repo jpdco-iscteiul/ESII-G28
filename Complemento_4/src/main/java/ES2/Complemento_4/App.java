@@ -49,7 +49,7 @@ public class App
 {
 	private Git git;
 	private final String TEMP="html/template.html";
-//	private final String HTML="html/covid_4.html";
+	private final String HTML="html/covid_4.html";
 	private final String REP="repositorio/cloneES";
 	private final String URL="https://github.com/vbasto-iscte/ESII1920.git";
 	private String link ="http://visualdataweb.de/webvowl/#iri=https://github.com/vbasto-iscte/ESII1920/raw/master/covid19spreading.rdf";
@@ -127,22 +127,22 @@ public class App
 		try
 	    {
 			String finalhtml = template.replace("$body", body);
-//	        PrintWriter printWriter = new PrintWriter (HTML);
-//	        printWriter.print(finalhtml);
-//	        printWriter.close ();        
+	        PrintWriter printWriter = new PrintWriter (HTML);
+	        printWriter.print(finalhtml);
+	        printWriter.close ();        
 	        System.out.println(finalhtml);
 	    }
 	    catch(Exception exception)
 	    {
 	        exception.printStackTrace();
 	    }
-//		File html = new File(HTML);
-//		try {
-//			Desktop.getDesktop().browse(html.toURI());
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		File html = new File(HTML);
+		try {
+			Desktop.getDesktop().browse(html.toURI());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 	
