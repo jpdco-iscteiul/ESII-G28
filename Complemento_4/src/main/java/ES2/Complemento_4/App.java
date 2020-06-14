@@ -111,15 +111,15 @@ public class App
 				"		$body\r\n" + 
 				"	</body>\r\n" + 
 				"</html>";
-		String body = "<h1>Evolução do Covid-19</h1> "
-				+ "<table border=\"2\" width=\"900\" align=\"center\">"
-				+ "<tr align=\"center\" bgcolor=\"lightblue\"> "
+		String body = "<h1>Evolução do Covid-19</h1> \r\n"
+				+ "<table border=\"2\" width=\"900\" align=\"center\">\r\n"
+				+ "<tr align=\"center\" bgcolor=\"lightblue\"> \r\n"
 				+ "<td> File Timestamp </td> <td> File Name </td> <td> File Tag </td> <td> Tag Description </td> <td> Spread Visualization Link </td> "
-				+ "</tr>";
+				+ "</tr>\r\n";
 		for (String string : list) {
 			String[] data = string.split("£");
 			
-			String row ="<tr> <td>"+data[2]+"</td> <td>"+data[3]+"</td> <td>"+data[0]+"</td> <td>"+data[1]+"</td> <td> <a href="+link.replace("master", data[0])+">Dados relacionados</a> </td> </tr>";
+			String row ="<tr> <td>"+data[2]+"</td> <td>"+data[3]+"</td> <td>"+data[0]+"</td> <td>"+data[1]+"</td> <td> <a href="+link.replace("master", data[0])+">Dados relacionados</a> </td> </tr>\r\n";
 			body+=row;
 		}
 		body+="</table>";
@@ -136,13 +136,13 @@ public class App
 	    {
 	        exception.printStackTrace();
 	    }
-		File html = new File(HTML);
-		try {
-			Desktop.getDesktop().browse(html.toURI());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		File html = new File(HTML);
+//		try {
+//			Desktop.getDesktop().browse(html.toURI());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 	}
 	
@@ -209,7 +209,7 @@ public class App
 	void connectWithGit() throws IOException, InvalidRemoteException, TransportException, GitAPIException {		
 		if(new File(REP).exists()) {
 			git =Git.open(new File(REP));
-			git.pull();
+			git.pull().call();
 		}
 		else {
 			git = Git.cloneRepository()
