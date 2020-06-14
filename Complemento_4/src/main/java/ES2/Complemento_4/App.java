@@ -126,8 +126,9 @@ public class App
 		
 		try
 	    {
+			File html = new File(HTML);
 			String finalhtml = template.replace("$body", body);
-	        PrintWriter printWriter = new PrintWriter (HTML);
+	        PrintWriter printWriter = new PrintWriter (html);
 	        printWriter.print(finalhtml);
 	        printWriter.close ();        
 	        System.out.println(finalhtml);
@@ -136,13 +137,13 @@ public class App
 	    {
 	        exception.printStackTrace();
 	    }
-//		File html = new File(HTML);
-//		try {
-//			Desktop.getDesktop().browse(html.toURI());
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		File html = new File(HTML);
+		try {
+			Desktop.getDesktop().browse(html.toURI());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 	
