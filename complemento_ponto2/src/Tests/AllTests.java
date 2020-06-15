@@ -3,6 +3,7 @@ package Tests;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.mail.EmailException;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.experimental.theories.suppliers.TestedOn;
 import org.junit.runner.RunWith;
@@ -23,6 +24,12 @@ public class AllTests {
 	System.setProperty("webdriver.chrome.driver","./driver/chromedriver.exe");
 	driver = new ChromeDriver();
 	driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+	}
+	
+	@AfterClass
+	public void end() {
+		driver.close();
+		driver.quit();
 	}
 	
 	@org.junit.Test

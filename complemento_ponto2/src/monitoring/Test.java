@@ -79,7 +79,7 @@ public class Test {
 		}
 	}
 
-	public static void checkWebPages() throws EmailException {		// 
+	public static void checkWebPages() throws EmailException {		// Neste método vamos verificar se as páginas web do site estão disponiveis
 		try {
 			driver.findElement(By.linkText("Home")).click();
 			driver.findElement(By.linkText("Covid Scientific Discoveries")).click();
@@ -107,7 +107,7 @@ public class Test {
 		}
 	}
 
-	public static void Login() throws EmailException {
+	public static void Login() throws EmailException { // Neste método fazemos o Login na página para ver se está tudo funcional
 		try {
 			driver.findElement(By.linkText("Log In")).click();
 			Thread.sleep(1000);
@@ -128,7 +128,7 @@ public class Test {
 		}
 	}
 
-	public static void checkRepositories() throws EmailException {
+	public static void checkRepositories() throws EmailException { // Neste método verificamos se os repositórios têem os ficheiros e abrimos 1 para testar se tem conteúdo
 		try {
 			driver.findElement(By.linkText("Covid Scientific Discoveries Repository")).click();
 			driver.findElement(By.linkText("biology-09-00097-2"));
@@ -148,7 +148,7 @@ public class Test {
 		}
 	}
 
-	public static void checkForms() throws EmailException {
+	public static void checkForms() throws EmailException { // Neste método verificamos se os formulários do site estão funcionais testando com dados gerados provisóriamente, verificando se recebemos resposta do site no email
 		try {
 			driver.findElement(By.linkText("Contact Us")).click();
 			((JavascriptExecutor)driver).executeScript("window.open()");
@@ -209,7 +209,7 @@ public class Test {
 		}
 	}
 
-	public static void checkEmail() throws EmailException {
+	public static void checkEmail() throws EmailException { //Verificamos se o nosso email provisório recebeu o email do site a confirmar o registo
 		try {
 			ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
 			driver.switchTo().window(tabs.get(1));
@@ -226,11 +226,8 @@ public class Test {
 			Availability = "Some errors detected";
 		}
 	}
-	public static void WebsiteAnalytics() {
-		
-	}
 
-	public static void html() throws EmailException {
+	public static void html() throws EmailException { //Gera o html com os dados recolhidos ao longo da classe
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 			Time = formatter.format(date);
@@ -251,7 +248,7 @@ public class Test {
 		}
 	}
 
-	public static void errorOcurred(String error) throws EmailException {
+	public static void errorOcurred(String error) throws EmailException { //Caso algum dos métodos anteriores dê erro, envia email ao Administrador a informar o erro.
 		Email email = new SimpleEmail();
 		email.setHostName("smtp.gmail.com");
 		email.setSmtpPort(465);
