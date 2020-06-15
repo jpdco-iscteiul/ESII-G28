@@ -18,6 +18,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
 public class Test {
+	/*
+	 * @autor 82295-Gonçalo Silva
+	 */
 	public static WebDriver driver;
 	private static String Time;
 	private static String WebsiteIsDown = "Available";
@@ -29,15 +32,23 @@ public class Test {
 	private static String WebAnalytics;
 	private static String Availability = "Everything working";
 	private static Date date = new Date();
-	// Alterar as variáveis abaixo conforme o ambiente no qual está a ser usado.
+	
+	/*
+	 * Alterar as variáveis abaixo conforme o ambiente no qual está a ser usado.
+	 */
+	
 	private static String Username = "root";
 	private static String Password = "root";
 	private static String Website = "http://192.168.99.100:8000/";
 	private static String EmailAdministrador = "esiigrupo28@gmail.com";
 	private static String PassAdministrador = "MekieTasFixe28";
 	private static String TitleWebsite = "ESII – Covid – 19";
+	
+	/*
+	 * 	Este método é o main que vai executar todas as funções pretendidas pelo trabalho
+	 */
 
-	public static void main(String[] args) throws InterruptedException, EmailException{	//Este método é o main que vai executar todas as funções pretendidas pelo trabalho
+	public static void main(String[] args) throws InterruptedException, EmailException{
 		System.setProperty("webdriver.chrome.driver","./driver/chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
@@ -57,7 +68,12 @@ public class Test {
 		driver.quit();
 	}
 
-	public static void checkWebsite() {		//Neste método vai iniciar o browser e vai direto ao nosso site do wordpress verificando se este está ativo através do título da página
+	/*
+	 * Neste método vai iniciar o browser e vai direto ao nosso site do wordpress verificando
+	 * se este está ativo através do título da página.
+	 */
+	
+	public static void checkWebsite() {		
 		try {
 			driver.navigate().to(Website);
 			driver.manage().window().maximize();
@@ -78,8 +94,12 @@ public class Test {
 		} catch (Exception e) {
 		}
 	}
+	
+	/*
+	 * Neste método vamos verificar se as páginas web do site estão disponiveis.
+	 */
 
-	public static void checkWebPages() throws EmailException {		// Neste método vamos verificar se as páginas web do site estão disponiveis
+	public static void checkWebPages() throws EmailException {		
 		try {
 			driver.findElement(By.linkText("Home")).click();
 			driver.findElement(By.linkText("Covid Scientific Discoveries")).click();
@@ -106,8 +126,12 @@ public class Test {
 			Availability = "Some errors detected";
 		}
 	}
+	
+	/*
+	 * Neste método fazemos o Login na página para ver se está tudo funcional.
+	 */
 
-	public static void Login() throws EmailException { // Neste método fazemos o Login na página para ver se está tudo funcional
+	public static void Login() throws EmailException { 
 		try {
 			driver.findElement(By.linkText("Log In")).click();
 			Thread.sleep(1000);
@@ -127,8 +151,12 @@ public class Test {
 
 		}
 	}
+	
+	/*
+	 *  Neste método verificamos se os repositórios têem os ficheiros e abrimos 1 para testar se tem conteúdo.
+	 */
 
-	public static void checkRepositories() throws EmailException { // Neste método verificamos se os repositórios têem os ficheiros e abrimos 1 para testar se tem conteúdo
+	public static void checkRepositories() throws EmailException { 
 		try {
 			driver.findElement(By.linkText("Covid Scientific Discoveries Repository")).click();
 			driver.findElement(By.linkText("biology-09-00097-2"));
@@ -147,8 +175,13 @@ public class Test {
 			Availability = "Some errors detected";
 		}
 	}
+	
+	/*
+	 *  Neste método verificamos se os formulários do site estão funcionais testando com dados gerados 
+	 *  provisóriamente, verificando se recebemos resposta do site no email.
+	 */
 
-	public static void checkForms() throws EmailException { // Neste método verificamos se os formulários do site estão funcionais testando com dados gerados provisóriamente, verificando se recebemos resposta do site no email
+	public static void checkForms() throws EmailException { 
 		try {
 			driver.findElement(By.linkText("Contact Us")).click();
 			((JavascriptExecutor)driver).executeScript("window.open()");
@@ -184,7 +217,7 @@ public class Test {
 			Thread.sleep(1000);
 			logOutAction.moveToElement(driver.findElement(By.linkText("Log out"))).click().perform();
 			Thread.sleep(1000);
-			driver.findElement(By.linkText("← Back to ESII")).click();
+			driver.findElement(By.linkText(" Back to ESII")).click();
 			driver.findElement(By.linkText("Join Us")).click();
 			Thread.sleep(1000);
 			driver.findElement(By.id("user_login-169")).sendKeys(username);
@@ -208,8 +241,12 @@ public class Test {
 			Availability = "Some errors detected";
 		}
 	}
+	
+	/*
+	 * Verificamos se o nosso email provisório recebeu o email do site a confirmar o registo
+	 */
 
-	public static void checkEmail() throws EmailException { //Verificamos se o nosso email provisório recebeu o email do site a confirmar o registo
+	public static void checkEmail() throws EmailException { 
 		try {
 			ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
 			driver.switchTo().window(tabs.get(1));
@@ -226,8 +263,12 @@ public class Test {
 			Availability = "Some errors detected";
 		}
 	}
+	
+	/*
+	 * Gera o html com os dados recolhidos ao longo da classe
+	 */
 
-	public static void html() throws EmailException { //Gera o html com os dados recolhidos ao longo da classe
+	public static void html() throws EmailException {
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 			Time = formatter.format(date);
@@ -247,8 +288,13 @@ public class Test {
 			errorOcurred("html error");
 		}
 	}
+	
+	/*
+	 * Caso algum dos métodos anteriores dê erro, envia email ao Administrador a informar o erro.
+	 */
 
-	public static void errorOcurred(String error) throws EmailException { //Caso algum dos métodos anteriores dê erro, envia email ao Administrador a informar o erro.
+
+	public static void errorOcurred(String error) throws EmailException { 
 		Email email = new SimpleEmail();
 		email.setHostName("smtp.gmail.com");
 		email.setSmtpPort(465);
