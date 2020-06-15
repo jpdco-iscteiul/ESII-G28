@@ -18,9 +18,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
 public class Test {
+	
 	/*
-	 * @autor 82295-Gonçalo Silva
+	 * @autor 82295-Gonçalo Silva ESII - Grupo28
 	 */
+	
 	public static WebDriver driver;
 	private static String Time;
 	private static String WebsiteIsDown = "Available";
@@ -290,7 +292,8 @@ public class Test {
 	}
 	
 	/*
-	 * Caso algum dos métodos anteriores dê erro, envia email ao Administrador a informar o erro.
+	 * Sempre que algum dos métodos anterior falha, envia email ao Administrador a informar o tipo de erro identificado.
+	 * @param error - tipo de erro ocurrido
 	 */
 
 
