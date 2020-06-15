@@ -219,7 +219,7 @@ public class Test {
 			Thread.sleep(1000);
 			logOutAction.moveToElement(driver.findElement(By.linkText("Log out"))).click().perform();
 			Thread.sleep(1000);
-			driver.findElement(By.linkText(" Back to ESII")).click();
+			driver.findElement(By.linkText("← Back to ESII")).click();
 			driver.findElement(By.linkText("Join Us")).click();
 			Thread.sleep(1000);
 			driver.findElement(By.id("user_login-169")).sendKeys(username);
