@@ -42,7 +42,6 @@ public class App {
 		else {
 			git = Git.cloneRepository().setURI(REMOTE_URL).setDirectory(path).call();
 		}
-
 	}
 
 
