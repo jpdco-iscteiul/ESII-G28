@@ -28,18 +28,16 @@ public class Test {
 	private static String Email = "Available";
 	private static String WebAnalytics;
 	private static String Availability = "Everything working";
-	// Alterar as variáveis abaixo conforme os dados a serem utilizados para o programa correr como é suposto.
-	private static String Username = "Visitor";
-	private static String Password = "esii2020";
+	private static Date date = new Date();
+	// Alterar as variáveis abaixo conforme o ambiente no qual está a ser usado.
+	private static String Username = "root";
+	private static String Password = "root";
 	private static String Website = "http://192.168.99.100:8000/";
 	private static String EmailAdministrador = "esiigrupo28@gmail.com";
 	private static String PassAdministrador = "MekieTasFixe28";
 	private static String TitleWebsite = "ESII – Covid – 19";
-	private static Date date = new Date();
 
-	public static void main(String[] args) throws InterruptedException, EmailException{
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		Time = formatter.format(date);
+	public static void main(String[] args) throws InterruptedException, EmailException{	//Este método é o main que vai executar todas as funções pretendidas pelo trabalho
 		System.setProperty("webdriver.chrome.driver","./driver/chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
@@ -56,9 +54,10 @@ public class Test {
 			checkEmail();
 		html();
 		driver.close();
+		driver.quit();
 	}
 
-	public static void checkWebsite() {
+	public static void checkWebsite() {		//Neste método vai iniciar o browser e vai direto ao nosso site do wordpress verificando se este está ativo através do título da página
 		try {
 			driver.navigate().to(Website);
 			driver.manage().window().maximize();
@@ -77,27 +76,28 @@ public class Test {
 				Availability = "Some errors detected";
 			}		
 		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Website is down");
 		}
 	}
 
-	public static void checkWebPages() {
+	public static void checkWebPages() throws EmailException {		// Neste método vamos verificar se as páginas web do site estão disponiveis
 		try {
-			driver.findElement(By.linkText("Home"));
-			driver.findElement(By.linkText("Covid Scientific Discoveries"));
-			driver.findElement(By.linkText("Covid Spread"));
-			driver.findElement(By.linkText("Covid Queries"));
-			driver.findElement(By.linkText("Covid Evolution"));
-			driver.findElement(By.linkText("Covid Wiki"));
-			driver.findElement(By.linkText("FAQ"));
-			driver.findElement(By.linkText("Contact Us"));
-			driver.findElement(By.linkText("Join Us"));
-			driver.findElement(By.linkText("About Us"));
-			driver.findElement(By.linkText("Covid Scientific Discoveries Repository"));
-			driver.findElement(By.linkText("Website Analytics"));
-			driver.findElement(By.linkText("Log In"));
+			driver.findElement(By.linkText("Home")).click();
+			driver.findElement(By.linkText("Covid Scientific Discoveries")).click();
+			driver.findElement(By.linkText("Covid Spread")).click();
+			driver.findElement(By.linkText("Covid Queries")).click();
+			driver.findElement(By.linkText("Covid Evolution")).click();
+			driver.findElement(By.linkText("Covid Wiki")).click();
+			driver.findElement(By.linkText("FAQ")).click();
+			driver.findElement(By.linkText("Contact Us")).click();
+			driver.findElement(By.linkText("Join Us")).click();
+			driver.findElement(By.linkText("About Us")).click();
+			driver.findElement(By.linkText("Covid Scientific Discoveries Repository")).click();
+			driver.findElement(By.linkText("Website Analytics")).click();
+			WebAnalytics = "<strong>More statistics from Website Analytics:</strong>"+driver.findElement(By.className("entry-content")).getText();
+			System.out.println(WebAnalytics);
+			driver.findElement(By.linkText("Log In")).click();
 		} catch (Exception e) {
+			errorOcurred("Web Page is down");
 			WebPages = "Unavailable";
 			LogIn = "Inconclusive";
 			Repository = "Inconclusive";
@@ -107,13 +107,8 @@ public class Test {
 		}
 	}
 
-	public static void Login() throws EmailException {
+	public static void Login() throws EmailException { // Neste método fazemos o Login na página para ver se está tudo funcional
 		try {
-			//			Actions act = new Actions(driver);
-			//			WebElement element = driver.findElement(By.linkText("Log in"));
-			//			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
-			//			Thread.sleep(1000);
-			//			act.moveToElement(driver.findElement(By.linkText("Log in"))).click().perform();
 			driver.findElement(By.linkText("Log In")).click();
 			Thread.sleep(1000);
 			WebElement username = driver.findElement(By.id("user_login"));
@@ -122,10 +117,8 @@ public class Test {
 			password.sendKeys(Password);
 			driver.findElement(By.id("wppb-submit")).click();
 			Thread.sleep(1000);
-			//			driver.findElement(By.id("welcome-panel"));
 		} catch (Exception e) {
-			//			e.printStackTrace();
-			errorOcurred("Log in not possible");
+			errorOcurred("Log in is not possible");
 			LogIn = "Unavailable";
 			Repository = "Inconclusive";
 			Forms = "Inconclusive";
@@ -135,7 +128,7 @@ public class Test {
 		}
 	}
 
-	public static void checkRepositories() {
+	public static void checkRepositories() throws EmailException { // Neste método verificamos se os repositórios têem os ficheiros e abrimos 1 para testar se tem conteúdo
 		try {
 			driver.findElement(By.linkText("Covid Scientific Discoveries Repository")).click();
 			driver.findElement(By.linkText("biology-09-00097-2"));
@@ -147,6 +140,7 @@ public class Test {
 				driver.navigate().back();
 			else Repository = "Unavailable";
 		} catch (Exception e) {
+			errorOcurred("Repository down");
 			Repository = "Unavailable";
 			Forms = "Inconclusive";
 			Email = "Inconclusive";
@@ -154,7 +148,7 @@ public class Test {
 		}
 	}
 
-	public static void checkForms() throws EmailException {
+	public static void checkForms() throws EmailException { // Neste método verificamos se os formulários do site estão funcionais testando com dados gerados provisóriamente, verificando se recebemos resposta do site no email
 		try {
 			driver.findElement(By.linkText("Contact Us")).click();
 			((JavascriptExecutor)driver).executeScript("window.open()");
@@ -171,24 +165,24 @@ public class Test {
 			driver.findElement(By.id("nf-field-9")).sendKeys(mail);
 			driver.findElement(By.id("nf-field-7")).sendKeys(username);
 			Thread.sleep(1000);
-			Actions act2 = new Actions(driver);
-			WebElement element2 = driver.findElement(By.cssSelector("input[value='Submit']"));
-			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element2);
+			Actions submitAction = new Actions(driver);
+			WebElement submitElement = driver.findElement(By.cssSelector("input[value='Submit']"));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", submitElement);
 			Thread.sleep(5000);
-			act2.moveToElement(driver.findElement(By.cssSelector("input[value='Submit']"))).click().perform();
+			submitAction.moveToElement(driver.findElement(By.cssSelector("input[value='Submit']"))).click().perform();
 			Thread.sleep(5000);
-			Actions act3 = new Actions(driver);
-			WebElement element3 = driver.findElement(By.linkText("Join Us"));
-			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element3);
+			Actions joinUsAction = new Actions(driver);
+			WebElement joinUsElement = driver.findElement(By.linkText("Join Us"));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", joinUsElement);
 			Thread.sleep(5000);
-			act3.moveToElement(driver.findElement(By.linkText("Join Us"))).click().perform();
+			joinUsAction.moveToElement(driver.findElement(By.linkText("Join Us"))).click().perform();
 			Thread.sleep(5000);
 			driver.findElement(By.linkText("Join Us")).click();
-			Actions act = new Actions(driver);
-			WebElement element = driver.findElement(By.linkText("Log out"));
-			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
+			Actions logOutAction = new Actions(driver);
+			WebElement logOutElement = driver.findElement(By.linkText("Log out"));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", logOutElement);
 			Thread.sleep(1000);
-			act.moveToElement(driver.findElement(By.linkText("Log out"))).click().perform();
+			logOutAction.moveToElement(driver.findElement(By.linkText("Log out"))).click().perform();
 			Thread.sleep(1000);
 			driver.findElement(By.linkText("← Back to ESII")).click();
 			driver.findElement(By.linkText("Join Us")).click();
@@ -200,26 +194,22 @@ public class Test {
 			driver.findElement(By.id("last_name-169")).sendKeys(username);
 			driver.findElement(By.id("_-169")).sendKeys(username);
 			driver.findElement(By.id("user_email-169")).sendKeys(mail);
-			Actions act1 = new Actions(driver);
-			WebElement element1 = driver.findElement(By.cssSelector("input[value='1']"));
-			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element1);
+			Actions privacyAction = new Actions(driver);
+			WebElement privacyElement = driver.findElement(By.cssSelector("input[value='1']"));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", privacyElement);
 			Thread.sleep(1000);
-			act1.moveToElement(driver.findElement(By.cssSelector("input[value='1']"))).click().perform();
-			//			driver.findElement(By.cssSelector("input[value='1']")).click();
+			privacyAction.moveToElement(driver.findElement(By.cssSelector("input[value='1']"))).click().perform();
 			driver.findElement(By.id("um-submit-btn")).click();
 			Thread.sleep(2000);
 		} catch (Exception e) {
-			//			e.printStackTrace();
-			e.printStackTrace();
+			errorOcurred("Error forms");
 			Forms = "Unavailable";
 			Email = "Inconclusive";
 			Availability = "Some errors detected";
-			errorOcurred("Error forms");
-			System.out.println("Error forms");
 		}
 	}
 
-	public static void checkEmail() throws EmailException {
+	public static void checkEmail() throws EmailException { //Verificamos se o nosso email provisório recebeu o email do site a confirmar o registo
 		try {
 			ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
 			driver.switchTo().window(tabs.get(1));
@@ -230,36 +220,17 @@ public class Test {
 			Thread.sleep(1000);
 			act.moveToElement(driver.findElement(By.linkText("Login to our site"))).click().perform();
 			Thread.sleep(2000);
-			//			driver.switchTo().window(tabs.get(2));
-			//			driver.findElement(By.linkText("Home"));
-			//			driver.close();
-			//			driver.get("https://www.google.com/intl/pt-PT/gmail/about/#");
-			//			Thread.sleep(100000);
-			//			driver.findElement(By.linkText("Iniciar sessão")).click();
-			//			Thread.sleep(5000);
-			//			driver.findElement(By.linkText("Email ou telemóvel")).sendKeys(EmailAdministrador);
-			//			driver.findElement(By.linkText("Seguinte")).click();
-			//			Thread.sleep(1000);
-			//			driver.findElement(By.id("Introduza a palavra-passe")).sendKeys(PassAdministrador);
-			//			Thread.sleep(1000);
-			//			driver.findElement(By.linkText("Seguinte")).click();
-			//			driver.findElement(By.id("1f"));
-			//			driver.findElement(By.id("2r"));
 		} catch (Exception e) {
-			//			e.printStackTrace();
-			e.printStackTrace();
+			errorOcurred("Error registration");
 			Email = "Unavailable";
 			Availability = "Some errors detected";
-			System.out.println("Error registration");
-			errorOcurred("Error registration");
 		}
 	}
-	public static void WebsiteAnalytics() {
-		
-	}
 
-	public static void html() throws EmailException {
+	public static void html() throws EmailException { //Gera o html com os dados recolhidos ao longo da classe
 		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			Time = formatter.format(date);
 			ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
 			driver.switchTo().window(tabs.get(0));
 			driver.get("https://www.cs.iupui.edu/~ajharris/webprog/jsTester.html");
@@ -272,17 +243,12 @@ public class Test {
 			Thread.sleep(3000);
 			driver.findElement(By.cssSelector("input[value='show the output']")).click();
 			Thread.sleep(10000);
-			System.out.println("Content-type: text/html\n");
-			System.out.println("<html>\n<head>\n<title>Monitoring Tool</title>\n</head>\n<body>\n<h2>Monitoring Tool</h2>\n<table border=\"1px\" height=\"auto\" length=\"auto\" align=\"left\"bgcolor=\"lightgrey\">\n<tr bgcolor=\"lightblue\">\n<th>WP-CMS</th>\n<th>Web Pages</th>\n<th>Login</th>\n<th>Repositories</th>\n<th>Forms</th>\n<th>Email</th>\n<th>Date</th>\n<th>Availability</th>\n</tr>");
-			System.out.println("<tr>\n<td>"+WebsiteIsDown+"</td>\n<td>"+WebPages+"</td>\n<td>"+LogIn+"</td>\n<td>"+Repository+"</td>\n<td>"+Forms+"</td>\n<td>"+Email+"</td>\n<td>"+Time+"</td>");
-			System.out.println("<td>"+Availability+"</td>");
-			System.out.println("</tr>\n</table>\n<p>"+WebAnalytics+"</p>\n</body>\n</html>");
 		} catch (Exception e) {
 			errorOcurred("html error");
 		}
 	}
 
-	public static void errorOcurred(String error) throws EmailException {
+	public static void errorOcurred(String error) throws EmailException { //Caso algum dos métodos anteriores dê erro, envia email ao Administrador a informar o erro.
 		Email email = new SimpleEmail();
 		email.setHostName("smtp.gmail.com");
 		email.setSmtpPort(465);
